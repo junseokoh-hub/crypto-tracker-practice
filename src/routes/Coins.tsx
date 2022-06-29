@@ -21,7 +21,8 @@ const Header = styled.div`
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.bgColor};
+  border: 1px solid ${(props) => props.theme.accentColor};
   color: ${(props) => props.theme.textColor};
   margin-bottom: 0.8em;
   border-radius: 1em;
@@ -65,8 +66,13 @@ interface ICoin {
   type: string;
 }
 
-function Coins() {
+interface ICoinsProps {
+  toggleDark: () => void;
+}
+
+function Coins({ toggleDark }: ICoinsProps) {
   const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
+
   /*const [coins, setCoins] = useState<CoinInterface[]>([]);
     const [loading, setLoading] = useState(true);
     useEffect(()=>{
@@ -86,6 +92,7 @@ function Coins() {
       </HelmetProvider>
       <Header>
         <Title>코인</Title>
+        <button onClick={toggleDark}>Toggle Mode</button>
       </Header>
       {
         /*loading*/ isLoading ? (

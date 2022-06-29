@@ -18,7 +18,11 @@ interface IHistoricalData {
   market_cap: number;
 }
 
-function Chart() {
+interface IChartProps {
+  isDark: boolean;
+}
+
+function Chart({ isDark }: IChartProps) {
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, data } = useQuery<IHistoricalData[]>(
     ["ohlcv", coinId],
@@ -36,7 +40,7 @@ function Chart() {
           type="line"
           options={{
             theme: {
-              mode: "dark",
+              mode: isDark ? "dark" : "light",
             },
             chart: {
               height: 300,
