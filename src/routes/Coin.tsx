@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import {
-  Route,
-  Routes,
   useLocation,
   useParams,
   Link,
@@ -143,7 +141,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   padding: 0.5em 0;
   border-radius: 0.6em;
   color: ${(props) =>
-    props.isActive ? props.theme.accentColor : props.theme.textColor};
+    props.isActive ? props.theme.textColor : props.theme.accentColor};
   a {
     display: block;
     -webkit-tap-highlight-color: transparent !important;
@@ -223,10 +221,10 @@ function Coin() {
           </Overview>
           <Tabs>
             <Tab isActive={priceMatch !== null}>
-              <Link to={`/${coinId}/price`}>Price</Link>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
             </Tab>
             <Tab isActive={chartMatch !== null}>
-              <Link to={`/${coinId}/chart`}>Chart</Link>
+              <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
           <Outlet context={{ coinId }} />

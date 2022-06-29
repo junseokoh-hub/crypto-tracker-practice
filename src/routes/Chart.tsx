@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { useQuery } from "react-query";
-import { fetchCoinHistory } from "../api";
+import { fetchCoinNavigate } from "../api";
 import ReactApexChart from "react-apexcharts";
 
 interface ChartProps {
@@ -22,7 +22,7 @@ function Chart() {
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, data } = useQuery<IHistoricalData[]>(
     ["ohlcv", coinId],
-    () => fetchCoinHistory(coinId),
+    () => fetchCoinNavigate(coinId),
     {
       refetchInterval: 10000,
     },

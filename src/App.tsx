@@ -1,6 +1,8 @@
-import { createGlobalStyle } from 'styled-components';
-import Router from './Router';
-import {ReactQueryDevtools} from 'react-query/devtools';
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import Router from "./Router";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { darkTheme, lightTheme } from "./theme";
+import { useState } from "react";
 
 //https://github.com/zacanger/styled-reset/blob/master/src/index.ts
 const GlobalStyle = createGlobalStyle`
@@ -57,8 +59,8 @@ table {
 }
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  background-color: ${props=>props.theme.bgColor};
-  color: ${props=> props.theme.textColor};
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
 }
 a {
   text-decoration: none;
@@ -67,13 +69,18 @@ a {
 `;
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
+  const toggleDark = () => setIsDark((prev) => !prev);
   return (
     <>
-      <GlobalStyle/>
-      <Router />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <button onClick={toggleDark}>Toggle Mode</button>
+        <GlobalStyle />
+        <Router />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeProvider>
     </>
-)
+  );
 }
 
 export default App;
