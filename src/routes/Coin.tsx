@@ -6,6 +6,7 @@ import {
   Link,
   useMatch,
   Outlet,
+  useNavigate,
 } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
@@ -141,11 +142,23 @@ const Tab = styled.span<{ isActive: boolean }>`
   padding: 0.5em 0;
   border-radius: 0.6em;
   color: ${(props) =>
-    props.isActive ? props.theme.textColor : props.theme.accentColor};
+    props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
     display: block;
     -webkit-tap-highlight-color: transparent !important;
   }
+`;
+
+const Back = styled.div`
+  width: 2em;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
+  cursor: pointer;
 `;
 function Coin() {
   const { coinId } = useParams(); /*<{coinId:string}>*/ /*<RouteParams>*/
@@ -163,6 +176,7 @@ function Coin() {
       refetchInterval: 5000,
     },
   );
+  let navigate = useNavigate();
   /* const [loading,setLoading] = useState(true);
     const [info, setInfo] = useState<InfoData>();
     const [priceInfo, setPriceInfo] = useState<PriceData>();
@@ -186,6 +200,7 @@ function Coin() {
         </Helmet>
       </HelmetProvider>
       <Header>
+        <Back onClick={() => navigate(-1)}>👈</Back>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
@@ -220,10 +235,10 @@ function Coin() {
             </OverviewItem>
           </Overview>
           <Tabs>
-            <Tab isActive={priceMatch !== null}>
+            <Tab isActive={chartMatch !== null}>
               <Link to={`/${coinId}/chart`}>Chart</Link>
             </Tab>
-            <Tab isActive={chartMatch !== null}>
+            <Tab isActive={priceMatch !== null}>
               <Link to={`/${coinId}/price`}>Price</Link>
             </Tab>
           </Tabs>
