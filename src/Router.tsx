@@ -13,6 +13,9 @@ const ToggleButton = styled.button`
   color: ${(props) => props.theme.textColor};
   background-color: transparent;
   border-radius: 2em;
+  position: absolute;
+  top: 1em;
+  right: 1em;
 `;
 
 function Router() {
