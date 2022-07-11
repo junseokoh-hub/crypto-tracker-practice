@@ -43,7 +43,7 @@ interface InfoData {
   last_data_at: string;
 }
 
-interface PriceData {
+export interface PriceData {
   id: string;
   name: string;
   symbol: string;
@@ -200,7 +200,8 @@ function Coin() {
         </Helmet>
       </HelmetProvider>
       <Header>
-        <Back onClick={() => navigate(-1)}>👈</Back>
+        <Back onClick={() => navigate("/")}>🔚</Back>
+        <Back onClick={() => navigate("-1")}>🔙</Back>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>

@@ -3,10 +3,24 @@ import Coins from "./routes/Coins";
 import Coin from "./routes/Coin";
 import Price from "./routes/Price";
 import Chart from "./routes/Chart";
+import { useSetRecoilState } from "recoil";
+import { isDarkAtom } from "./atoms";
+import styled from "styled-components";
+
+const ToggleButton = styled.button`
+  cursor: pointer;
+  border: 1px solid ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.textColor};
+  background-color: transparent;
+  border-radius: 2em;
+`;
 
 function Router() {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   return (
     <BrowserRouter>
+      <ToggleButton onClick={toggleDarkAtom}>Toggle Mode</ToggleButton>
       <Routes>
         <Route path="/:coinId/*" element={<Coin />}>
           <Route path={`chart`} element={<Chart />} />

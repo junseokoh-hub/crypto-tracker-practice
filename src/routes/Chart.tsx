@@ -24,7 +24,7 @@ function Chart() {
   const isDark = useRecoilValue(isDarkAtom);
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, data } = useQuery<IHistoricalData[]>(
-    ["ohlcv", coinId],
+    ["ohlcv/chart", coinId],
     () => fetchCoinNavigate(coinId),
     {
       refetchInterval: 10000,
@@ -36,7 +36,7 @@ function Chart() {
         "Loading chart..."
       ) : (
         <ReactApexChart
-          type="line"
+          type="candlestick"
           options={{
             theme: {
               mode: isDark ? "dark" : "light",
@@ -49,38 +49,30 @@ function Chart() {
               },
               background: "transparent",
             },
-            grid: {
-              show: false,
-            },
             stroke: {
               curve: "smooth",
               width: 5,
             },
             yaxis: {
-              show: false,
+              labels: {
+                formatter: (value) => `$${value}`,
+              },
             },
             xaxis: {
-              axisBorder: { show: false },
-              axisTicks: { show: false },
-              labels: { show: false },
               type: "datetime",
               categories: data?.map((price) => price.time_close),
-            },
-            fill: {
-              type: "gradient",
-              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
-            },
-            colors: ["#0fbcf9"],
-            tooltip: {
-              y: {
-                formatter: (value) => `$${value.toFixed(2)}`,
-              },
             },
           }}
           series={[
             {
               name: "price",
-              data: data?.map((price) => price.close) ?? [],
+              data:
+                data?.flat().map((price) => {
+                  return {
+                    x: price.time_close,
+                    y: [price.open, price.high, price.low, price.close],
+                  };
+                }) ?? [],
             },
           ]}
         />
