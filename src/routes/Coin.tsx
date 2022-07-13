@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import { useEffect, useState } from "react";
+>>>>>>> 250110ac67216693595df261171384e7a2fc7a48
 import { useQuery } from "react-query";
 import {
   useLocation,
@@ -11,6 +15,13 @@ import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
+<<<<<<< HEAD
+=======
+// interface RouteParams {
+//     coinId: string
+// }
+
+>>>>>>> 250110ac67216693595df261171384e7a2fc7a48
 interface RouteState {
   state: {
     name: string;
@@ -172,7 +183,22 @@ function Coin() {
     },
   );
   let navigate = useNavigate();
+<<<<<<< HEAD
 
+=======
+  /* const [loading,setLoading] = useState(true);
+    const [info, setInfo] = useState<InfoData>();
+    const [priceInfo, setPriceInfo] = useState<PriceData>();
+    useEffect(()=>{
+        (async () => {
+            const infoData = await (await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)).json();
+            const priceData = await (await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)).json();
+            setInfo(infoData);
+            setPriceInfo(priceData);
+            setLoading(false);
+        })()
+    },[coinId])*/
+>>>>>>> 250110ac67216693595df261171384e7a2fc7a48
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
@@ -185,7 +211,11 @@ function Coin() {
       </HelmetProvider>
       <Header>
         <Back onClick={() => navigate("/")}>🔚</Back>
+<<<<<<< HEAD
         <Back onClick={() => navigate(-1)}>🔙</Back>
+=======
+        <Back onClick={() => navigate("-1")}>🔙</Back>
+>>>>>>> 250110ac67216693595df261171384e7a2fc7a48
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </Title>
