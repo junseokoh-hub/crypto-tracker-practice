@@ -23,7 +23,7 @@ function Routing() {
   const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <ToggleButton onClick={toggleDarkAtom}>Toggle Mode</ToggleButton>
+      <ToggleButton onClick={toggleDarkAtom}>Toggle Button</ToggleButton>
       <Routes>
         <Route path="/:coinId/*" element={<Coin />}>
           <Route path={`chart`} element={<Chart />} />
